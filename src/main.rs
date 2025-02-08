@@ -1,5 +1,6 @@
 use rand::Rng;
 use std::io;
+use std::cmp::Ordering;
 
 fn main() {
     let mut rng = rand::rng();
@@ -20,17 +21,13 @@ fn main() {
             }
         };
 
-        if n == nombre_a_deviner {
-            println!("✅ Bravo! Le nombre à deviner était bien {}.", nombre_a_deviner);
-            return; //On sort de la boucle quand on a deviné le nombre
-        }
-        else if n < nombre_a_deviner {
-            println!("C'est plus ! ⤴️");
-            println!(); //Permet saut à la ligne
-        }
-        else if n > nombre_a_deviner {
-            println!("C'est moins ! ⤵️");
-            println!();
+        match n.cmp(&nombre_a_deviner) {
+            Ordering::Less => println!("C'est plus ! ⤴️"),
+            Ordering::Greater => println!("C'est moins ! ⤵️"),
+            Ordering::Equal => {
+                println!("✅ Bravo! Le nombre à deviner était bien {}.", nombre_a_deviner);
+                return; //On sort de la boucle quand on a deviné le nombre
+            }
         }
     }
 }
