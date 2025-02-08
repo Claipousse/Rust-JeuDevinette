@@ -7,12 +7,11 @@ fn main() {
     let nombre_a_deviner: u8 = rng.random_range(0..=100);
 
     loop {
-        let mut input = String::new();
+        let mut str_input = String::new();
         println!("Devine le nombre ! (0 à 100)");
-        io::stdin()
-            .read_line(&mut input)
-            .expect("❌ Erreur lors de la lecture");
-        let n: u8 = match input.trim().parse() {
+        io::stdin().read_line(&mut str_input).expect("❌ Erreur lors de la lecture");
+
+        let input: u8 = match str_input.trim().parse() {
             Ok(num) if (0..=100).contains(&num) => num,
             _ => {
                 println!("❌ La saisie est incorrecte ! Veuillez rééssayer.");
@@ -21,9 +20,15 @@ fn main() {
             }
         };
 
-        match n.cmp(&nombre_a_deviner) {
-            Ordering::Less => println!("C'est plus ! ⤴️"),
-            Ordering::Greater => println!("C'est moins ! ⤵️"),
+        match input.cmp(&nombre_a_deviner) {
+            Ordering::Less => {
+                println!("C'est plus ! ⤴️");
+                println!();
+            },
+            Ordering::Greater => {
+                println!("C'est moins ! ⤵️");
+                println!();
+            },
             Ordering::Equal => {
                 println!("✅ Bravo! Le nombre à deviner était bien {}.", nombre_a_deviner);
                 return; //On sort de la boucle quand on a deviné le nombre
