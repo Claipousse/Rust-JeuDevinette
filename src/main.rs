@@ -1,10 +1,10 @@
-use rand::Rng;
-use std::io;
-use std::cmp::Ordering;
+use rand::Rng; //rand 0.9.0 importé dans .toml
+use std::io; //Gère entrées/sorties
+use std::cmp::Ordering; //Gère les comparaisons
 
 fn main() {
     let mut rng = rand::rng();
-    let nombre_a_deviner: u8 = rng.random_range(0..=100);
+    let nombre_a_deviner: u8 = rng.random_range(0..=100); //On code la variable sur 8 bits car 0 à 255 suffisent
 
     loop {
         let mut str_input = String::new();
@@ -12,11 +12,11 @@ fn main() {
         io::stdin().read_line(&mut str_input).expect("❌ Erreur lors de la lecture");
 
         let input: u8 = match str_input.trim().parse() {
-            Ok(num) if (0..=100).contains(&num) => num,
+            Ok(num) if (0..=100).contains(&num) => num, //Le nombre saisit doit être compris entre 0 et 100
             _ => {
                 println!("❌ La saisie est incorrecte ! Veuillez rééssayer.");
                 println!();
-                continue;
+                continue; //On saute l'itération pour ne pas éxécuter le code dessous
             }
         };
 
